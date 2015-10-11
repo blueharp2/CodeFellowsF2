@@ -13,20 +13,25 @@ class PersonDetailViewController: UIViewController, UITextFieldDelegate {
 
   @IBOutlet weak var firstNameTextField: UITextField!
   @IBOutlet weak var lastNameTextField: UITextField!
-
+  @IBOutlet weak var imageView: UIImageView!
+ 
   var selectedPerson : Person!
 
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-   firstNameTextField.delegate = self
-   lastNameTextField.delegate = self
+    firstNameTextField.delegate = self
+    lastNameTextField.delegate = self
+    
   
     firstNameTextField.text = selectedPerson.firstName
     lastNameTextField.text = selectedPerson.lastName
+    imageView.image = selectedPerson.image
     
     
+    //let lindseyImage = UIImage(named: "Lindsey.jpeg")
+    //imageView.image = lindseyImage
   }
   
   

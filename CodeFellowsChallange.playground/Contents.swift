@@ -25,8 +25,18 @@ let a:Int? = Int(someString2)
 //This works!!!!
 
 
-
+var componentIntegers = [Int]()
 let number = "123456"
+for character in number.characters {
+  let characterString = String(character)
+  let  componentInteger = Int(characterString)
+  componentIntegers.append(componentInteger!)
+}
+
+
+
+
+var character = number
 if let convertedNumber = Int(number) {
   print(convertedNumber)
   let array = Array(arrayLiteral: convertedNumber)
@@ -38,13 +48,10 @@ if let convertedNumber = Int(number) {
 
 
 
+//break the string into an array before you transfer it to an Int
+//string characters string
 
-
-
-
-
-
-
+//.componen
 //let number = "123456"
 
 //let array = Array(number).map{String($0).toInt() ?? 0}  // [1, 2, 3, 4, 5, 6]
