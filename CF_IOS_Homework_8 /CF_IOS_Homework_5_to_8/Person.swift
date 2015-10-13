@@ -19,45 +19,31 @@ class Person : NSObject, NSCoding {
     lastName = lname
     image = photo
   }
-  required init(coder aDecoder: NSCoder)
-  {
-    self.firstName = (aDecoder.decodeObjectForKey("firstName") as? String)!
-    self.lastName = (aDecoder.decodeObjectForKey("lastName") as? String!)!
-    if let decodedImage = aDecoder.decodeObjectForKey("image") as?UIImage {
-      self.image = decodedImage
+  
+  
+  required init?(coder aDecoder: NSCoder) {
+    if let firstName = aDecoder.decodeObjectForKey("firstName") as? String {
+      self.firstName = firstName
+    } else {
+      self.firstName = "NA"
+    }
+    if let lastName = aDecoder.decodeObjectForKey("lastName") as? String {
+      self.lastName = lastName
+    }else {
+      self.lastName = "NA"
+    }
+    if let data = aDecoder.decodeObjectForKey("image") as? NSData {
+       self.image = UIImage(data: data)
     }
   }
   
   func encodeWithCoder(aCoder: NSCoder) {
-    aCoder.encodeObject(self.firstName, forKey: "firstName")
-    aCoder.encodeObject(self.lastName, forKey: "lastName")
-    if self.image != nil {
-      aCoder.encodeObject(self.image, forKey: "image")
+    aCoder.encodeObject(firstName, forKey: "firstName")
+    aCoder.encodeObject(lastName, forKey: "lastName")
+    if let image = image {
+      if let data = UIImageJPEGRepresentation(image, 0.0){
+        aCoder.encodeObject(data, forKey: "image")
+      }
     }
   }
-//  required init?(coder aDecoder: NSCoder) {
-//    if let firstName = aDecoder.decodeObjectForKey("firstName") as? String {
-//      self.firstName = firstName
-//    } else {
-//      self.firstName = "NA"
-//    }
-//    
-//    if let lastName = aDecoder.decodeObjectForKey("lastName") as? String {
-//      self.lastName = lastName
-//    }else {
-//      self.lastName = "NA"
-//    }
-//    
-//    if let decodedimage = aDecoder.decodeObjectForKey("image") as? UIImage {
-//      self.image = decodedimage
-//    }
-//  }
-//  
-//  func encodeWithCoder(aCoder: NSCoder) {
-//    aCoder.encodeObject(firstName, forKey: "firstName")
-//    aCoder.encodeObject(lastName, forKey: "lastName")
-//    aCoder.encodeObject(image, forKey: "image")
-//  
-//  }
-  
 }

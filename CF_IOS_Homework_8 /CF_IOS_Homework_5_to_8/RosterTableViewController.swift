@@ -79,32 +79,19 @@ class RosterTableViewController: UIViewController, UITableViewDataSource {
   }
   
   func saveToArchive() {
-    let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-    NSKeyedArchiver.archiveRootObject(self.people, toFile: documentsPath + "/archive")
-  }
+    if let documentPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last {
   
-  func loadFromArchive() {
-    let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,NSSearchPathDomainMask.UserDomainMask, true) [0] as String
-    if let peopleFromArchive = NSKeyedUnarchiver.unarchiveObjectWithFile(documentsPath + "/archive") as? [Person] {
-      self.people = peopleFromArchive
+      NSKeyedArchiver.archiveRootObject(people, toFile: documentPath + "/archive")
     }
   }
   
-//  func saveToArchive() {
-//    if let documentPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last {
-//  
-//      NSKeyedArchiver.archiveRootObject(people, toFile: documentPath + "/archive")
-//    }
-//  }
-//  
-//  func loadFromArchive() -> [Person]? {
-//    if let documentPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last {
-//      
-//      if let people = NSKeyedUnarchiver.unarchiveObjectWithFile(documentPath + "/archive") as? [Person] {
-//        return people
-//      }
-//    }
-//    return nil
-//  }
-
+  func loadFromArchive() -> [Person]? {
+    if let documentPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last {
+      
+      if let people = NSKeyedUnarchiver.unarchiveObjectWithFile(documentPath + "/archive") as? [Person] {
+        return people
+      }
+    }
+    return nil
+  }
 }
